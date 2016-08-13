@@ -55,6 +55,9 @@ class SuperFormContainer extends Component {
         if (!values.id) {
           errors.id = 'ID is Required'
         }
+        if (values.count !== '1') {
+          errors.count = 'must be 1'
+        }
         return errors
       }
     } else {
@@ -81,6 +84,9 @@ class SuperFormContainer extends Component {
       }
       validate = values => {
         const errors = {}
+        if (values.size !== 'small') {
+          errors.size = 'Size must be small'
+        }
         if (values.count !== '5') {
           errors.count = 'must be 5'
         }
