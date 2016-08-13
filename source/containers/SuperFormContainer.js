@@ -22,6 +22,7 @@ class SuperFormContainer extends Component {
     console.log('%% handleSumbitForm %%')
     console.log(data)
     console.log('%% handleSumbitForm %%')
+    this.props.resetForm()
   }
   render() {
     let fields
