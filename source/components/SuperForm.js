@@ -2,9 +2,9 @@
 import React from 'react'
 import {Field} from 'redux-form'
 
-const renderFieldDefault = ({title, meta: {touched, error}, input, ...rest}) => (
+const renderFieldDefault = ({meta: {touched, error}, input, ...rest}) => (
   <label>
-    {title}
+    {input.name}
     <input {...rest} {...input} />
     {touched && error && <span>{error}</span>}
     <br />
@@ -17,20 +17,19 @@ const SuperForm = ({fields, handleSubmit, handleSelectTemplate}) => (
 
     <p>Select template:</p>
     <select onChange={handleSelectTemplate}>
-      <option value='first'>first</option>
-      <option value='second'>second</option>
+      <option value='a'>A</option>
+      <option value='b'>B</option>
+      <option value='c'>C</option>
     </select>
 
     <p>Create item:</p>
     <form onSubmit={handleSubmit} >
-      {fields.map(({type, name, title, placeholder}, fieldIndex) => (
+      {fields.map(({type, name, title}, fieldIndex) => (
         <Field
           key={fieldIndex}
           component={renderFieldDefault}
           type='text'
           name={name}
-          title={title}
-          placeholder={placeholder}
         />
       ))}
       <button>Send</button>

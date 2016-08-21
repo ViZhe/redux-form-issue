@@ -9,7 +9,7 @@ import SuperForm from '../components/SuperForm'
 
 class SuperFormContainer extends Component {
   componentWillMount() {
-    this.setState({currentTemplate: 'first'})
+    this.setState({currentTemplate: 'a'})
   }
   selectTemplate = event => {
     this.setState({currentTemplate: event.target.value})
@@ -29,67 +29,52 @@ class SuperFormContainer extends Component {
     let initialValues
     let validate
 
-    if (this.state.currentTemplate === 'first') {
+    if (this.state.currentTemplate === 'a') {
       fields = [
-        {
-          name: 'id',
-          title: 'ID field',
-          placeholder: 'type id'
-        },
-        {
-          name: 'count',
-          title: 'Count field',
-          placeholder: 'type count'
-        },
-        {
-          name: 'position',
-          title: 'Position field',
-          placeholder: 'type position'
-        }
+        {name: 'f1'},
+        {name: 'f2'}
       ]
       initialValues = {
-        count: '10',
-        position: 'left'
+        f2: '10'
       }
       validate = values => {
         const errors = {}
-        if (!values.id) {
-          errors.id = 'ID is Required'
-        }
-        if (values.count !== '1') {
-          errors.count = 'must be 1'
+        return errors
+      }
+    } else if (this.state.currentTemplate === 'b') {
+      fields = [
+        {name: 'f1'},
+        {name: 'f2'},
+        {name: 'f3'},
+        {name: 'f4'},
+        {name: 'f5'}
+      ]
+      initialValues = {
+        f2: '10'
+      }
+      validate = values => {
+        const errors = {}
+        if (!values.f3) {
+          errors.f3 = 'Required'
         }
         return errors
       }
-    } else {
+    } else if (this.state.currentTemplate === 'c') {
       fields = [
-        {
-          name: 'id',
-          title: 'ID field',
-          placeholder: 'type id'
-        },
-        {
-          name: 'count',
-          title: 'Count field',
-          placeholder: 'type count'
-        },
-        {
-          name: 'size',
-          title: 'Size field',
-          placeholder: 'type size'
-        }
+        {name: 'f3'},
+        {name: 'f5'},
+        {name: 'f6'}
       ]
       initialValues = {
-        count: '5',
-        size: 'big'
+        f6: 1
       }
       validate = values => {
         const errors = {}
-        if (values.size !== 'small') {
-          errors.size = 'Size must be small'
+        if (!values.f3) {
+          errors.f3 = 'Required'
         }
-        if (values.count !== '5') {
-          errors.count = 'must be 5'
+        if (values.f6 < 10) {
+          errors.f6 = 'Must be >= 10'
         }
         return errors
       }
@@ -97,16 +82,21 @@ class SuperFormContainer extends Component {
     }
 
     return (
-      <Former
-        initialValues={initialValues}
-        validate={validate}
-        onSubmit={this.handleSumbitForm}
-      >
-        <SuperForm
-          handleSelectTemplate={this.selectTemplate}
-          fields={fields}
-        />
-      </Former>
+      <div>
+        <Former
+          initialValues={initialValues}
+          validate={validate}
+          onSubmit={this.handleSumbitForm}
+        >
+          <SuperForm
+            handleSelectTemplate={this.selectTemplate}
+            fields={fields}
+          />
+        </Former>
+        <p><b>Validate Map:</b></p>
+        <p>f3 is Required</p>
+        <p>f6 must be >= 10</p>
+      </div>
     )
   }
 }
